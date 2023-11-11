@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="icon" href="{{ url_for('static', filename='favico.ico') }}" type="image/x-icon">
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='logo.png') }}" type="image/x-icon">
+    <meta property="og:title" content="Sweeter - Sweet test page"/>
+    <meta property="og:description" content="Are you looking something? come here"/>
+    <meta property="og:image" content="{{ url_for('static', filename='sweetice.jpg') }} "/>
+
+    <title>Register</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    
+    <link rel="icon" href="https://media.istockphoto.com/id/1225992522/id/vektor/ditambah-simbol-masuk-dengan-gaya-yang-digambar-dengan-tangan-ilustrasi-terisolasi-di-latar.jpg?s=1024x1024&w=is&k=20&c=1_vV_dD93Q1Napg0qhAiJkXnJ5Au9DDlh2f78HbBwKQ=" type="image/x-icon">
+
+    <style>
+        .container {
+            margin-top: 50px;
+            width: 400px;
+        }
+
+        .container h1 {
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Register Your Account</h1>
+        <form class="box">
+
+            <!-- ========kolom ID======= -->
+            <div class="field">
+                <label class="label" for="id_give">ID:</label>
+                <div class="control">
+                    <input class="input" type="text" id="id_give" name="id_give"
+                        placeholder="Masukkan ID yang ingin di daftar">
+                </div>
+            </div>
+
+            <!-- ========kolom nickname======= -->
+            <div class="field">
+                <label class="label" for="nickname_give">Nickname</label>
+                <div class="control">
+                    <input class="input" type="text" id="nickname_give" name="nickname_give" placeholder="Masukkan Nickname">
+                </div>
+            </div>
+
+            <!-- ========kolom password======= -->
+            <div class="field">
+                <label class="label" for="pw_give">Password</label>
+                <div class="control">
+                    <input class="input" type="password" id="pw_give" name="pw_give" placeholder="Masukkan Password">
+                </div>
+            </div>
+
+            <button class="button is-success" type="button" onclick="register()">Register</button>
+        </form>
+
+    </div>
+
+    <script>
+        function register() {
+            let id = $('#id_give').val();
+            let password = $('#pw_give').val();
+            let nickname = $('#nickname_give').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/register',
+                data: {
+                    "id_give": id,
+                    "pw_give": password,
+                    "nickname_give": nickname
+                },
+                success: function (response) {
+                    if (response.result === 'success') {
+                        alert(response.msg);
+                        window.location.reload();
+                    } else {
+                        alert(response.msg);
+                    }
+                }
+            });
+        };
+    </script>
+</body>
+
+</html>
+
+<!-- if (response.result === 'success') {
+            alert(response.result);
+            window.location.reload()
+        } else {
+            alert(response.msg);
+        } -->
+
+<!-- <h1>Register</h1>
+    <div class="container">
+        <form id="register-form">
+            <label for="id_give">ID:</label>
+            <input type="text" id="id_give" name="id_give"><br><br>
+
+            <label for="pw_give">Password:</label>
+            <input type="password" id="pw_give" name="pw_give"><br><br>
+
+            <label for="nickname_give">Nickname:</label>
+            <input type="text" id="nickname_give" name="nickname_give"><br><br>
+
+            <button class="button is-success" type="button" onclick="register()">Register</button>
+        </form>
+    </div> -->
